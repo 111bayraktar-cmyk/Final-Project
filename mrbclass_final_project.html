@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mr. B's Science Olympiad — Final Project Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  /* ── Reset & base ─────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #f8f6f1;
+    --card:      #ffffff;
+    --scratch:   #e8500a;
+    --scratch-lt:#fff4ef;
+    --scratch-md:#fde0d0;
+    --micro:     #1a7cc5;
+    --micro-lt:  #eef5fc;
+    --micro-md:  #cce2f5;
+    --green:     #2a8a5e;
+    --green-lt:  #edfaf3;
+    --red:       #c0392b;
+    --red-lt:    #fdf0ee;
+    --amber:     #b45309;
+    --amber-lt:  #fef9ee;
+    --ink:       #1c1a17;
+    --ink-2:     #3d3a35;
+    --ink-3:     #6b6760;
+    --rule:      #e4e0d8;
+    --shadow:    0 2px 12px rgba(0,0,0,0.07);
+    --shadow-lg: 0 6px 28px rgba(0,0,0,0.10);
+    --r:         14px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── Header ───────────────────────────────────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, #1c3a5e 0%, #1a7cc5 60%, #23a97e 100%);
+    color: white;
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 80%, rgba(255,255,255,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 20%, rgba(255,255,255,0.09) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 30px;
+    padding: 5px 18px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  header p.tagline {
+    font-size: 1.05rem;
+    opacity: 0.85;
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .due-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.95);
+    color: var(--red);
+    border-radius: 30px;
+    padding: 8px 22px;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.18);
+  }
+
+  /* ── Nav pills ────────────────────────────────────────────────────────── */
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 1.25rem 1.5rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  nav a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 7px 18px;
+    border-radius: 30px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  nav a.scratch { background: var(--scratch-lt); color: var(--scratch); border: 1.5px solid var(--scratch-md); }
+  nav a.scratch:hover { background: var(--scratch); color: white; }
+  nav a.micro   { background: var(--micro-lt);   color: var(--micro);   border: 1.5px solid var(--micro-md); }
+  nav a.micro:hover { background: var(--micro); color: white; }
+  nav a.rubric  { background: #f0f0ff; color: #4a4aaa; border: 1.5px solid #d0d0f0; }
+  nav a.rubric:hover { background: #4a4aaa; color: white; }
+  nav a.tips    { background: var(--green-lt); color: var(--green); border: 1.5px solid #b2e8d0; }
+  nav a.tips:hover { background: var(--green); color: white; }
+
+  /* ── Page wrap ────────────────────────────────────────────────────────── */
+  main { max-width: 860px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  /* ── Integrity banner ─────────────────────────────────────────────────── */
+  .integrity {
+    background: var(--red-lt);
+    border: 1.5px solid #f0c0ba;
+    border-left: 5px solid var(--red);
+    border-radius: var(--r);
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .integrity .icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+
+  .integrity strong {
+    display: block;
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .integrity p { font-size: 14px; color: #7a3030; line-height: 1.6; }
+
+  /* ── Section headers ──────────────────────────────────────────────────── */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .section-icon.scratch-ic { background: linear-gradient(135deg, #ff8c42, #e8500a); }
+  .section-icon.micro-ic   { background: linear-gradient(135deg, #23c4a8, #1a7cc5); }
+
+  .section-title h2 {
+    font-size: 1.55rem;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .section-title .sub { font-size: 13px; color: var(--ink-3); font-weight: 600; margin-top: 2px; }
+
+  /* ── Project sections ─────────────────────────────────────────────────── */
+  .project-block {
+    background: var(--card);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .project-block.scratch { border-top: 5px solid var(--scratch); }
+  .project-block.micro   { border-top: 5px solid var(--micro); }
+
+  .overview-box {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 15px;
+    color: var(--ink-2);
+    line-height: 1.7;
+    border: 1px solid var(--rule);
+  }
+
+  /* ── Label ────────────────────────────────────────────────────────────── */
+  .label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 22px;
+  }
+
+  .label.scratch-c { color: var(--scratch); }
+  .label.micro-c   { color: var(--micro); }
+  .label.green-c   { color: var(--green); }
+  .label.purple-c  { color: #5050b0; }
+
+  /* ── Topic chips ──────────────────────────────────────────────────────── */
+  .topic-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .topic-chip {
+    background: var(--scratch-lt);
+    border: 1.5px solid var(--scratch-md);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--scratch);
+  }
+
+  /* ── Requirement list ─────────────────────────────────────────────────── */
+  .req-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .req-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #fafaf8;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    transition: box-shadow 0.18s;
+  }
+
+  .req-list li:hover { box-shadow: var(--shadow); }
+
+  .req-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .scratch .req-num { background: var(--scratch-md); color: var(--scratch); }
+  .micro   .req-num { background: var(--micro-md);   color: var(--micro); }
+
+  .req-list b { color: var(--ink); }
+
+  /* ── Highlight box (Button A+B) ───────────────────────────────────────── */
+  .highlight-box {
+    background: var(--micro-lt);
+    border: 1.5px solid var(--micro-md);
+    border-left: 5px solid var(--micro);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 14px 0 4px;
+    font-size: 14px;
+    color: #1a3a5e;
+    line-height: 1.65;
+  }
+
+  .highlight-box strong { color: var(--micro); }
+
+  .button-demo {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .btn-a { background: #e0f0ff; color: #1a5a9a; border: 1.5px solid #a8d0f0; }
+  .btn-b { background: #e0ffe8; color: #1a6a3a; border: 1.5px solid #a0ddb8; }
+  .btn-ab { background: #fdf0ff; color: #6a1a8a; border: 1.5px solid #ddb0f0; }
+
+  .kbd {
+    display: inline-block;
+    background: white;
+    border: 1.5px solid currentColor;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    font-weight: 900;
+  }
+
+  /* ── Tip box ──────────────────────────────────────────────────────────── */
+  .tip-box {
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-top: 16px;
+  }
+
+  .tip-box.green  { background: var(--green-lt); border: 1px solid #b2e8d0; }
+  .tip-box.amber  { background: var(--amber-lt); border: 1px solid #f5d58a; }
+  .tip-box.micro  { background: var(--micro-lt); border: 1px solid var(--micro-md); }
+
+  .tip-box h4 {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tip-box.green h4 { color: var(--green); }
+  .tip-box.amber h4 { color: var(--amber); }
+  .tip-box.micro h4 { color: var(--micro); }
+
+  .tip-box ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+
+  .tip-box li {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .tip-box.green li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  .tip-box.amber li::before { content: '→'; position: absolute; left: 0; color: var(--amber); font-weight: 800; }
+  .tip-box.micro li::before { content: '→'; position: absolute; left: 0; color: var(--micro); font-weight: 800; }
+
+  /* ── Rubric ───────────────────────────────────────────────────────────── */
+  .rubric-block {
+    background: var(--card);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .rubric-block h3 {
+    font-size: 1.1rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .rubric-block h3 .pts-badge {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  .scratch-badge { background: var(--scratch-lt); color: var(--scratch); }
+  .micro-badge   { background: var(--micro-lt);   color: var(--micro); }
+
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  .rubric-table th {
+    padding: 9px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    color: white;
+  }
+
+  .rubric-table th:first-child { border-radius: 8px 0 0 0; }
+  .rubric-table th:last-child  { border-radius: 0 8px 0 0; text-align: center; }
+
+  .scratch-hdr th { background: var(--scratch); }
+  .micro-hdr   th { background: var(--micro); }
+
+  .rubric-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .rubric-table td:first-child { font-weight: 700; color: var(--ink); }
+  .rubric-table td:last-child  { text-align: center; font-weight: 900; font-size: 15px; }
+
+  .rubric-table tr:nth-child(even) td { background: #fafaf8; }
+  .rubric-table tr:last-child td { background: #f0f0f8; font-weight: 800; color: #3a3a7a; }
+
+  .rubric-table td.score-20 { color: var(--green); }
+
+  /* ── Timeline ─────────────────────────────────────────────────────────── */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .tl-card {
+    background: var(--card);
+    border: 1.5px solid var(--rule);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s;
+  }
+
+  .tl-card:hover { transform: translateY(-2px); }
+
+  .tl-card:last-child { border-color: var(--red); background: #fff8f7; }
+  .tl-card:last-child .tl-week { color: var(--red); }
+
+  .tl-week { font-size: 11px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .tl-card:last-child .tl-week { color: var(--red); }
+  .tl-text { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; font-weight: 600; }
+
+  /* ── Search dos/don'ts ────────────────────────────────────────────────── */
+  .do-dont { display: flex; flex-direction: column; gap: 8px; }
+
+  .do-row, .dont-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .do-row   { background: var(--green-lt); }
+  .dont-row { background: var(--red-lt); }
+
+  .do-row .ico   { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .dont-row .ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Footer ───────────────────────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+
+  footer strong { color: var(--ink); }
+
+  /* ── Animations ───────────────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .project-block:nth-child(2) { animation-delay: 0.08s; }
+  .project-block:nth-child(3) { animation-delay: 0.14s; }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .rubric-table { font-size: 11.5px; }
+    .rubric-table th, .rubric-table td { padding: 7px 8px; }
+    header h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────────────────── -->
+<header>
+  <div class="header-badge">🏆 Mr. B's Science Olympiad Class</div>
+  <h1>7th Grade Science<br>Final Project Guide</h1>
+  <p class="tagline">Two hands-on projects that bring science to life — animate it, code it, make it yours.</p>
+  <div class="due-chip">
+    📅 Both Projects Due: <strong>Thursday, June 4 — by 9:00 AM</strong>
+  </div>
+</header>
+
+<!-- ── NAV ───────────────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#project1" class="scratch">🔬 Project 1: Scratch</a>
+  <a href="#project2" class="micro">🎵 Project 2: micro:bit</a>
+  <a href="#rubric" class="rubric">⭐ Grading Rubric</a>
+  <a href="#tips" class="tips">💡 Tips & Timeline</a>
+</nav>
+
+<!-- ── MAIN ──────────────────────────────────────────────────────────────── -->
+<main>
+
+  <!-- Integrity banner -->
+  <div class="integrity">
+    <div class="icon">🚨</div>
+    <div>
+      <strong>Academic Integrity — Zero Tolerance</strong>
+      <p>You <b>may</b> search the internet for ideas and inspiration. You <b>may not</b> copy, download, remix, or submit anyone else's Scratch project or micro:bit code. All work must be created entirely by you. <b>Plagiarism = 0 points. No exceptions. No redo.</b></p>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT 1 ══════════════════════════════════════════════════════════ -->
+  <div class="project-block scratch" id="project1">
+
+    <div class="section-title">
+      <div class="section-icon scratch-ic">🔬</div>
+      <div>
+        <h2>Project 1 — Scratch Science Simulation</h2>
+        <div class="sub">Animate a scientific process with moving parts + explanatory text</div>
+      </div>
+    </div>
+
+    <div class="overview-box">
+      Create an animated, interactive <b>Scratch project</b> that shows how a real scientific process works.
+      This is <b>NOT a slideshow</b>. Molecules, cells, organelles, or structures must
+      <b>actually move on screen</b>. Your project must also teach the viewer what is happening
+      through on-screen text or narration that appears during the animation.
+    </div>
+
+    <div class="label scratch-c">Choose Your Topic</div>
+    <div class="topic-grid">
+      <span class="topic-chip">🧬 Cell Division (Mitosis / Meiosis)</span>
+      <span class="topic-chip">🌿 Photosynthesis</span>
+      <span class="topic-chip">⚡ Cellular Respiration</span>
+      <span class="topic-chip">⚖️ Finding Density</span>
+      <span class="topic-chip">💡 Your own idea — ask Mr. B first!</span>
+    </div>
+
+    <div class="label scratch-c">Requirements — All 8 Must Be Met</div>
+    <ul class="req-list">
+      <li>
+        <div class="req-num">1</div>
+        <div><b>Real animation — not slides.</b> At least 3 sprites or parts must visibly move, change, grow, split, or react on screen. Clicking "next" to show a new background does <b>not</b> count as animation.</div>
+      </li>
+      <li>
+        <div class="req-num">2</div>
+        <div><b>Correct science.</b> The process you animate must match what actually happens in nature. Labels, names, and steps must be accurate.</div>
+      </li>
+      <li>
+        <div class="req-num">3</div>
+        <div><b>On-screen text that explains.</b> Every major step must have a clear, readable text explanation that appears during that step — like a caption or narration box.</div>
+      </li>
+      <li>
+        <div class="req-num">4</div>
+        <div><b>At least 3 labeled stages or steps.</b> Example for mitosis: Interphase → Prophase → Metaphase → Anaphase → Telophase, with each stage named on screen.</div>
+      </li>
+      <li>
+        <div class="req-num">5</div>
+        <div><b>Interactive start.</b> Use a "Start" button or a key press — don't auto-play everything at once.</div>
+      </li>
+      <li>
+        <div class="req-num">6</div>
+        <div><b>Original sprites and backgrounds.</b> Draw your own sprites in the Scratch editor or use built-in Scratch assets. Do not import artwork you did not create.</div>
+      </li>
+      <li>
+        <div class="req-num">7</div>
+        <div><b>A title screen.</b> First thing the viewer sees is your project name and your name.</div>
+      </li>
+      <li>
+        <div class="req-num">8</div>
+        <div><b>Share the link.</b> Submit as a Scratch share link. Set it to "Share" — not just saved. Test the link before submitting.</div>
+      </li>
+    </ul>
+
+    <div class="tip-box green">
+      <h4>🧠 How to make it feel alive — not like a slideshow</h4>
+      <ul>
+        <li>Use the <b>glide</b> block to move molecules from one place to another</li>
+        <li>Use <b>costume changes</b> to show a cell growing or changing shape</li>
+        <li>Use <b>wait</b> blocks so text appears as the animation plays, not all at once</li>
+        <li>Use <b>show / hide</b> to make new structures appear at the right moment</li>
+        <li>Try <b>cloning</b> to duplicate molecules or cells that are multiplying</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ══ PROJECT 2 ══════════════════════════════════════════════════════════ -->
+  <div class="project-block micro" id="project2">
+
+    <div class="section-title">
+      <div class="section-icon micro-ic">🎵</div>
+      <div>
+        <h2>Project 2 — micro:bit Jukebox</h2>
+        <div class="sub">Code two playable songs triggered by different buttons</div>
+      </div>
+    </div>
+
+    <div class="overview-box">
+      Program your micro:bit to be a mini jukebox with <b>two different songs or tunes</b>,
+      each triggered by a different button. The LED display must show something while
+      each song plays. Use <b>MakeCode</b> at
+      <a href="https://makecode.microbit.org" target="_blank" style="color:var(--micro);">makecode.microbit.org</a>
+      — blocks or JavaScript, your choice.
+    </div>
+
+    <!-- Button A+B highlight -->
+    <div class="highlight-box">
+      <strong>🎹 How the buttons work:</strong><br>
+      Your jukebox must respond to button presses like this:
+      <div class="button-demo">
+        <div class="btn-pill btn-a"><span class="kbd">A</span> Song 1 plays</div>
+        <div class="btn-pill btn-b"><span class="kbd">B</span> Song 2 plays</div>
+        <div class="btn-pill btn-ab"><span class="kbd">A+B</span> Bonus: 3rd feature (optional)</div>
+      </div>
+      <div style="margin-top:10px; font-size:13px; color:#2a4a6a;">
+        When <b>Button A</b> is pressed → Song 1 starts playing and the LED shows its display.<br>
+        When <b>Button B</b> is pressed → Song 2 starts playing and the LED shows a different display.<br>
+        The two songs must sound <b>clearly different</b> from each other — not the same melody repeated.<br>
+        For a bonus, pressing <b>A+B together</b> can trigger a third tune, animation, or special feature.
+      </div>
+    </div>
+
+    <div class="label micro-c">Requirements — All 6 Must Be Met</div>
+    <ul class="req-list">
+      <li>
+        <div class="req-num">1</div>
+        <div><b>Two distinct songs/tunes.</b> Each must have at least <b>8 notes</b>. They should sound clearly different from each other — not the same melody played twice at different speeds.</div>
+      </li>
+      <li>
+        <div class="req-num">2</div>
+        <div><b>Button A → Song 1. Button B → Song 2.</b> Each button reliably starts the correct song. Songs should not overlap — if a song is playing, pressing the other button should switch to the new song.</div>
+      </li>
+      <li>
+        <div class="req-num">3</div>
+        <div><b>LED display feedback.</b> While each song plays, the LED shows something — a scrolling song name, a dancing pattern, a simple picture, or an animation. <b>No blank screen.</b></div>
+      </li>
+      <li>
+        <div class="req-num">4</div>
+        <div><b>Songs must be coded note-by-note.</b> Do <b>not</b> use built-in preset melodies (like Dadadum or Entertainer). Code each note yourself using the <em>play tone</em> block or equivalent.</div>
+      </li>
+      <li>
+        <div class="req-num">5</div>
+        <div><b>A welcome screen on startup.</b> When the micro:bit turns on, the LED scrolls your name or a title (like "🎵 Jukebox") before waiting for a button press.</div>
+      </li>
+      <li>
+        <div class="req-num">6</div>
+        <div><b>Submit your code.</b> Download and submit your <b>.hex file</b> AND a screenshot or photo of your MakeCode blocks. Write 2–3 sentences explaining how your jukebox works and what songs you chose.</div>
+      </li>
+    </ul>
+
+    <div class="tip-box micro">
+      <h4>🎹 Tips for writing your songs note-by-note</h4>
+      <ul>
+        <li>Look up the note frequency chart: Middle C = 262 Hz, D = 294 Hz, E = 330 Hz, F = 349 Hz, G = 392 Hz</li>
+        <li>Mix short notes (1 beat) and long notes (2 beats) to make melodies sound more musical</li>
+        <li>Add a <b>rest</b> (silence) between phrases so the song breathes — don't rush it</li>
+        <li>Try coding a song you already know: Happy Birthday, Hot Cross Buns, a video game tune</li>
+        <li>Test on a real micro:bit with a speaker or headphone adapter — the simulator can sound different</li>
+        <li>Make your two songs feel <b>different in mood</b>: one fast and fun, one slow and calm</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ══ GRADING RUBRIC ══════════════════════════════════════════════════════ -->
+  <div id="rubric">
+    <h2 style="font-size:1.5rem; font-weight:900; margin-bottom:1.25rem; margin-top:0.5rem; letter-spacing:-0.01em;">
+      ⭐ Grading Rubric
+    </h2>
+
+    <!-- Project 1 rubric -->
+    <div class="rubric-block">
+      <h3>
+        🔬 Project 1 — Scratch Science Simulation
+        <span class="pts-badge scratch-badge">100 points</span>
+      </h3>
+      <div style="overflow-x:auto;">
+        <table class="rubric-table">
+          <thead class="scratch-hdr">
+            <tr>
+              <th style="width:18%;">Category</th>
+              <th>Excellent (20)</th>
+              <th>Good (15)</th>
+              <th>Developing (10)</th>
+              <th>Incomplete (5)</th>
+              <th style="width:7%;">Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Scientific Accuracy</td>
+              <td>All steps and labels are correct and complete</td>
+              <td>Mostly accurate; 1–2 minor errors</td>
+              <td>Some errors that affect understanding</td>
+              <td>Major errors or steps missing</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Animation Quality</td>
+              <td>3+ sprites animate meaningfully; motion matches the science</td>
+              <td>2–3 sprites move; mostly matches science</td>
+              <td>Some movement but feels like a slideshow</td>
+              <td>Little or no animation</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Explanatory Text</td>
+              <td>Clear, detailed text explains every step as it happens</td>
+              <td>Text present for most steps; mostly clear</td>
+              <td>Text exists but is vague or mistimed</td>
+              <td>Little or no explanation text</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Stages / Structure</td>
+              <td>3+ clearly labeled, sequenced stages with smooth transitions</td>
+              <td>3 stages present; transitions a bit rough</td>
+              <td>Stages present but not clearly labeled</td>
+              <td>Fewer than 3 stages or no clear structure</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Creativity & Effort</td>
+              <td>Original design, polished sprites, clearly invested effort</td>
+              <td>Shows personal effort; some original touches</td>
+              <td>Minimal customization; basic visuals</td>
+              <td>Very little visible effort</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td colspan="4" style="text-align:right; color:var(--ink-3); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;">TOTAL</td>
+              <td style="color:#5050b0; font-size:17px;">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Project 2 rubric -->
+    <div class="rubric-block">
+      <h3>
+        🎵 Project 2 — micro:bit Jukebox
+        <span class="pts-badge micro-badge">100 points</span>
+      </h3>
+      <div style="overflow-x:auto;">
+        <table class="rubric-table">
+          <thead class="micro-hdr">
+            <tr>
+              <th style="width:18%;">Category</th>
+              <th>Excellent (20)</th>
+              <th>Good (15)</th>
+              <th>Developing (10)</th>
+              <th>Incomplete (5)</th>
+              <th style="width:7%;">Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Two Working Songs</td>
+              <td>Both songs play fully; 8+ notes; clearly distinct melodies</td>
+              <td>Both songs play; one may be shorter or similar sounding</td>
+              <td>One song works well; other is incomplete</td>
+              <td>Only one song or neither plays properly</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Button Triggers (A & B)</td>
+              <td>A → Song 1, B → Song 2, reliably every time</td>
+              <td>Triggers work but occasionally glitch</td>
+              <td>One trigger works; other has issues</td>
+              <td>Triggers don't work or songs are mixed up</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>LED Display</td>
+              <td>Both songs have meaningful, distinct LED output</td>
+              <td>LED works for both songs; display is simple</td>
+              <td>LED does something but feels disconnected</td>
+              <td>Blank screen during playback</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Code Quality</td>
+              <td>All notes coded individually; clean, organized blocks</td>
+              <td>Mostly hand-coded; minor shortcuts</td>
+              <td>Used some preset melodies or copied structure</td>
+              <td>Preset melodies used or code unreadable</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td>Submission</td>
+              <td>.hex + screenshot + clear written explanation submitted</td>
+              <td>Mostly complete; explanation is brief</td>
+              <td>Missing one component or explanation unclear</td>
+              <td>Multiple items missing</td>
+              <td class="score-20">20</td>
+            </tr>
+            <tr>
+              <td colspan="4" style="text-align:right; color:var(--ink-3); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;">TOTAL</td>
+              <td style="color:#5050b0; font-size:17px;">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Plagiarism note -->
+    <div class="integrity">
+      <div class="icon">⚠️</div>
+      <div>
+        <strong>Plagiarism Policy</strong>
+        <p>Any project found to be copied, remixed without permission, or AI-generated in whole will receive an automatic <b>score of 0</b> with no opportunity to redo. If you are not sure whether something is allowed — ask Mr. B first. When in doubt, make it yourself.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TIPS & TIMELINE ════════════════════════════════════════════════════ -->
+  <div id="tips" style="margin-top:2.5rem;">
+    <h2 style="font-size:1.5rem; font-weight:900; margin-bottom:1.25rem; letter-spacing:-0.01em;">💡 Tips & Timeline</h2>
+
+    <div style="background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); padding:2rem; margin-bottom:1.5rem;">
+
+      <div class="label green-c">Suggested 4-Week Plan</div>
+      <div class="timeline">
+        <div class="tl-card">
+          <div class="tl-week">Week 1</div>
+          <div class="tl-text">Choose topic & research. Sketch your plan on paper before opening Scratch.</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-week">Week 2</div>
+          <div class="tl-text">Build Scratch sprites. Start coding the animation and first stage.</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-week">Week 3</div>
+          <div class="tl-text">Add text, remaining stages, polish Scratch. Start micro:bit jukebox.</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-week">Week 4</div>
+          <div class="tl-text">Finish jukebox. Test both projects. Write your explanation sentences.</div>
+        </div>
+        <div class="tl-card">
+          <div class="tl-week">📅 Due!</div>
+          <div class="tl-text">Thu, June 4<br>by 9:00 AM<br>Submit everything!</div>
+        </div>
+      </div>
+
+      <div class="label green-c">How to Search for Ideas (the right way)</div>
+      <div class="do-dont">
+        <div class="do-row"><span class="ico">✅</span><span>Look up <b>how the science works</b> — search "how does photosynthesis work" or "mitosis steps explained" to understand what you're animating.</span></div>
+        <div class="do-row"><span class="ico">✅</span><span>Watch <b>tutorials for Scratch techniques</b> — search "how to clone a sprite in Scratch." Learn the technique, then apply it yourself to your own project.</span></div>
+        <div class="do-row"><span class="ico">✅</span><span>Look up <b>note frequencies</b> for micro:bit — search "note frequency chart Hz" to find the right numbers for your song notes.</span></div>
+        <div class="dont-row"><span class="ico">❌</span><span>Do <b>NOT</b> open someone else's Scratch project, click "Remix," and submit it. That is plagiarism, even if you change a few things.</span></div>
+        <div class="dont-row"><span class="ico">❌</span><span>Do <b>NOT</b> copy code from a GitHub repo, YouTube tutorial, or any website and submit it as your own work.</span></div>
+      </div>
+
+      <div class="tip-box amber" style="margin-top:1.25rem;">
+        <h4>🙋 When to ask Mr. B</h4>
+        <ul>
+          <li>You want to do a topic that isn't on the list</li>
+          <li>You're not sure whether a source or resource is okay to use</li>
+          <li>Your micro:bit isn't playing sound correctly when you test it</li>
+          <li>You've been stuck for more than 20 minutes and can't move forward</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <strong>Mr. B's 7th Grade Science Olympiad</strong> &nbsp;·&nbsp;
+  Final Projects Due <strong>Thursday, June 4 by 9:00 AM</strong> &nbsp;·&nbsp;
+  Good luck — make something you're proud of! 🚀
+</footer>
+
+</body>
+</html>
