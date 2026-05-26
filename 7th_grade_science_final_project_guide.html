@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: #0a0e1a;
+    color: #e8eaf2;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1b3e 0%, #0a0e1a 50%, #1a0d2e 100%);
+    padding: 3rem 2rem 2rem;
+    border-bottom: 1px solid rgba(100,120,255,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(100,120,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,210,150,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(100,120,255,0.15);
+    border: 1px solid rgba(100,120,255,0.4);
+    color: #8899ff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, #aab4ff 50%, #00d296 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub {
+    color: #8892b0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  .integrity-banner {
+    background: linear-gradient(135deg, rgba(255,80,80,0.1), rgba(255,120,50,0.08));
+    border: 1px solid rgba(255,80,80,0.3);
+    border-left: 4px solid #ff5050;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 2rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .integrity-banner .icon {
+    font-size: 1.3rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .integrity-banner strong {
+    display: block;
+    color: #ff8080;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .integrity-banner p {
+    color: #c8a0a0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .content {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: #6672a0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    border-radius: 6px 6px 0 0;
+    letter-spacing: 0.02em;
+  }
+
+  .tab-btn:hover { color: #aab4ff; background: rgba(100,120,255,0.05); }
+
+  .tab-btn.active {
+    color: #ffffff;
+    border-bottom-color: #6478ff;
+    background: rgba(100,120,255,0.08);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .project-icon.scratch { background: linear-gradient(135deg, #ff8c42, #ff5f85); }
+  .project-icon.microbit { background: linear-gradient(135deg, #00c9a7, #0081d5); }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .project-sub {
+    color: #6672a0;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6478ff;
+    margin-bottom: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .section-label:first-of-type { margin-top: 0; }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 0.5rem;
+  }
+
+  .topic-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topic-emoji { font-size: 1.2rem; }
+
+  .topic-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #c8d0e8;
+    line-height: 1.3;
+  }
+
+  .req-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .req-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+  }
+
+  .req-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(100,120,255,0.2);
+    border: 1px solid rgba(100,120,255,0.4);
+    color: #8899ff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .req-text {
+    font-size: 0.875rem;
+    color: #b8c0d8;
+    line-height: 1.55;
+  }
+
+  .req-text strong {
+    color: #e0e4f4;
+    font-weight: 600;
+  }
+
+  .tip-box {
+    background: rgba(0,210,150,0.06);
+    border: 1px solid rgba(0,210,150,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .tip-box h4 {
+    color: #00d296;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-box p, .tip-box li {
+    font-size: 0.85rem;
+    color: #7ab89e;
+    line-height: 1.6;
+  }
+
+  .tip-box ul { list-style: none; }
+  .tip-box ul li::before { content: '→ '; color: #00d296; font-weight: 700; }
+
+  .rubric-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .rubric-table th {
+    background: rgba(100,120,255,0.12);
+    color: #8899ff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(100,120,255,0.2);
+  }
+
+  .rubric-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #b0b8d0;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .rubric-table tr:last-child td { border-bottom: none; }
+  .rubric-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .rubric-table td:first-child {
+    color: #d8dff0;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .pts {
+    text-align: center !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .pts-20 { color: #00d296; }
+  .pts-15 { color: #aab4ff; }
+  .pts-10 { color: #ffd080; }
+  .pts-5  { color: #ff8080; }
+
+  .total-row td {
+    background: rgba(100,120,255,0.1) !important;
+    color: #c8d0f0 !important;
+    font-weight: 700 !important;
+    border-top: 1px solid rgba(100,120,255,0.3) !important;
+  }
+
+  .rubric-wrap {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .rubric-title {
+    background: rgba(255,255,255,0.05);
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #c0c8e8;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .honor-box {
+    background: rgba(255,80,80,0.06);
+    border: 1px solid rgba(255,80,80,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .honor-box h4 {
+    color: #ff8080;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .honor-box p {
+    font-size: 0.85rem;
+    color: #b89090;
+    line-height: 1.6;
+  }
+
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .timeline-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .tl-label {
+    font-size: 0.7rem;
+    color: #6672a0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .tl-val {
+    font-size: 0.85rem;
+    color: #c0c8e8;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">7th Grade Science Elective · Final Project</div>
+  <h1>Two Projects.<br>One Amazing Grade.</h1>
+  <p class="hero-sub">A Scratch animation that brings science to life, and a micro:bit jukebox that makes music with code. Read every instruction carefully before you start.</p>
+</div>
+
+<div class="integrity-banner">
+  <div class="icon">🚨</div>
+  <div>
+    <strong>Academic Integrity — Zero Tolerance</strong>
+    <p>You <strong>may</strong> search the internet for ideas and inspiration. You <strong>may not</strong> copy, download, remix, or submit anyone else's Scratch project or micro:bit code. All work submitted must be created entirely by you. Plagiarism = 0 points, no exceptions, no redo.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('p1')">🔬 Project 1 · Scratch</button>
+    <button class="tab-btn" onclick="showTab('p2')">🎵 Project 2 · micro:bit</button>
+    <button class="tab-btn" onclick="showTab('rubric')">⭐ Grading Rubric</button>
+    <button class="tab-btn" onclick="showTab('tips')">💡 Tips & Timeline</button>
+  </div>
+
+  <!-- PROJECT 1 -->
+  <div id="p1" class="tab-panel active">
+    <div class="project-header">
+      <div class="project-icon scratch">🔬</div>
+      <div>
+        <div class="project-title">Scratch Science Simulation</div>
+        <div class="project-sub">Animate a scientific process with moving parts + interactive text</div>
+      </div>
+    </div>
+
+    <div class="section-label">What You're Making</div>
+    <p style="font-size:0.88rem; color:#a0a8c0; line-height:1.7; margin-bottom:1rem;">
+      Create an animated, interactive Scratch project that shows how a real scientific process works. This is NOT a slideshow. Molecules, cells, organelles, or structures must actually <strong style="color:#d8dff0;">move on screen</strong>. Your project must also teach the viewer what's happening through on-screen text or spoken narration.
+    </p>
+
+    <div class="section-label">Choose Your Topic</div>
+    <div class="topic-grid">
+      <div class="topic-card"><span class="topic-emoji">🧬</span><span class="topic-name">Cell Division (Mitosis or Meiosis)</span></div>
+      <div class="topic-card"><span class="topic-emoji">🌿</span><span class="topic-name">Photosynthesis</span></div>
+      <div class="topic-card"><span class="topic-emoji">⚡</span><span class="topic-name">Cellular Respiration</span></div>
+      <div class="topic-card"><span class="topic-emoji">⚖️</span><span class="topic-name">Finding Density</span></div>
+      <div class="topic-card"><span class="topic-emoji">💡</span><span class="topic-name">Your own idea (ask teacher first!)</span></div>
+    </div>
+
+    <div class="section-label">Requirements — All 8 Must Be Met</div>
+    <ul class="req-list">
+      <li>
+        <div class="req-num">1</div>
+        <div class="req-text"><strong>Real animation — not slides.</strong> At least 3 sprites or parts must visibly move, change, grow, split, or react on screen. Clicking "next" to show a new background does not count as animation.</div>
+      </li>
+      <li>
+        <div class="req-num">2</div>
+        <div class="req-text"><strong>Correct science.</strong> The process you animate must match what actually happens in nature. Labels, names, and steps must be accurate.</div>
+      </li>
+      <li>
+        <div class="req-num">3</div>
+        <div class="req-text"><strong>On-screen text that explains.</strong> Every major step in the process must have a clear, readable text explanation that appears during that step — like a caption or narration box.</div>
+      </li>
+      <li>
+        <div class="req-num">4</div>
+        <div class="req-text"><strong>At least 3 labeled stages or steps.</strong> Example for mitosis: show Interphase → Prophase → Metaphase → Anaphase → Telophase, with each stage named on screen.</div>
+      </li>
+      <li>
+        <div class="req-num">5</div>
+        <div class="req-text"><strong>Interactive start.</strong> The project should not auto-play everything. Use a "Start" button or a key press so the viewer is in control.</div>
+      </li>
+      <li>
+        <div class="req-num">6</div>
+        <div class="req-text"><strong>Original sprites and backgrounds.</strong> Draw your own sprites in the Scratch editor, or use built-in Scratch assets. Do not import artwork you did not create.</div>
+      </li>
+      <li>
+        <div class="req-num">7</div>
+        <div class="req-text"><strong>A title screen.</strong> First thing the viewer sees is your project name and your name.</div>
+      </li>
+      <li>
+        <div class="req-num">8</div>
+        <div class="req-text"><strong>Share the link.</strong> Submit your project as a Scratch share link. Make sure it is set to "Share" — not just saved. Test the link before submitting.</div>
+      </li>
+    </ul>
+
+    <div class="tip-box">
+      <h4>🧠 How to make it feel alive, not like a slideshow</h4>
+      <ul>
+        <li>Use the <strong>glide</strong> block to move molecules from one place to another</li>
+        <li>Use <strong>costume changes</strong> to show a cell growing or changing shape</li>
+        <li>Use <strong>wait</strong> blocks so text appears as the animation plays, not all at once</li>
+        <li>Use <strong>show / hide</strong> to make new structures appear at the right moment</li>
+        <li>Try <strong>cloning</strong> to duplicate molecules or cells multiplying</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div id="p2" class="tab-panel">
+    <div class="project-header">
+      <div class="project-icon microbit">🎵</div>
+      <div>
+        <div class="project-title">micro:bit Jukebox</div>
+        <div class="project-sub">Code two playable songs on your micro:bit using MakeCode</div>
+      </div>
+    </div>
+
+    <div class="section-label">What You're Making</div>
+    <p style="font-size:0.88rem; color:#a0a8c0; line-height:1.7; margin-bottom:1rem;">
+      Program your micro:bit to be a mini jukebox with <strong style="color:#d8dff0;">two different songs or tunes</strong>. Each song is triggered by a different button or gesture. The LED display should show something while the song plays. This project uses <a href="https://makecode.microbit.org" style="color:#00d296;">MakeCode</a> (blocks or JavaScript — your choice).
+    </p>
+
+    <div class="section-label">Requirements — All 6 Must Be Met</div>
+    <ul class="req-list">
+      <li>
+        <div class="req-num">1</div>
+        <div class="req-text"><strong>Two distinct songs/tunes.</strong> Each must have at least <strong>8 notes</strong>. They should sound clearly different from each other — not just the same melody played twice.</div>
+      </li>
+      <li>
+        <div class="req-num">2</div>
+        <div class="req-text"><strong>Separate triggers.</strong> Song 1 plays when Button A is pressed. Song 2 plays when Button B is pressed. (You may use shake or tilt as a third trigger for a bonus feature.)</div>
+      </li>
+      <li>
+        <div class="req-num">3</div>
+        <div class="req-text"><strong>LED display feedback.</strong> While each song plays, the LED screen shows something — a scrolling song name, a dancing pattern, a simple picture, or an animation. No blank screen.</div>
+      </li>
+      <li>
+        <div class="req-num">4</div>
+        <div class="req-text"><strong>Songs must be coded note-by-note.</strong> Do not use the built-in "play melody" preset melodies (like Dadadum or Entertainer). Code each note yourself using the <em>play tone</em> block or equivalent.</div>
+      </li>
+      <li>
+        <div class="req-num">5</div>
+        <div class="req-text"><strong>A welcome screen on startup.</strong> When the micro:bit turns on, the LED display scrolls your name or a title like "🎵 Jukebox" before waiting for input.</div>
+      </li>
+      <li>
+        <div class="req-num">6</div>
+        <div class="req-text"><strong>Submit your code.</strong> Download and submit your <strong>.hex file</strong> AND a screenshot or photo of your MakeCode blocks. Write a 2–3 sentence explanation of how your jukebox works and what songs you chose.</div>
+      </li>
+    </ul>
+
+    <div class="tip-box">
+      <h4>🎹 Tips for writing your songs</h4>
+      <ul>
+        <li>Look up the note frequency chart — Middle C = 262 Hz, D = 294 Hz, E = 330 Hz, and so on</li>
+        <li>Short notes (1 beat) + long notes (2 beats) make melodies sound more interesting</li>
+        <li>Add a <em>rest</em> (silence) between phrases to make it sound musical, not rushed</li>
+        <li>Try to code a song you know — Happy Birthday, Hot Cross Buns, or a video game tune you like</li>
+        <li>Test on a real micro:bit with a speaker or headphone adapter — the simulator doesn't always sound the same</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RUBRIC -->
+  <div id="rubric" class="tab-panel">
+
+    <div class="rubric-wrap">
+      <div class="rubric-title">🔬 Project 1 — Scratch Science Simulation &nbsp;<span style="color:#6672a0;font-weight:400;font-size:0.75rem;">/ 100 points</span></div>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Category</th>
+            <th>Excellent (20 pts)</th>
+            <th>Good (15 pts)</th>
+            <th>Developing (10 pts)</th>
+            <th>Incomplete (5 pts)</th>
+            <th class="pts" style="width:7%;">Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Scientific Accuracy</td>
+            <td>All steps and labels are correct and complete</td>
+            <td>Mostly accurate; 1–2 minor errors</td>
+            <td>Some errors that affect understanding</td>
+            <td>Major errors or steps missing</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Animation Quality</td>
+            <td>3+ sprites animate meaningfully; motion matches the science</td>
+            <td>2–3 sprites move; mostly matches the science</td>
+            <td>Some movement but feels like a slideshow</td>
+            <td>Little or no animation</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Explanatory Text</td>
+            <td>Clear, detailed text explains every step as it happens</td>
+            <td>Text present for most steps; mostly clear</td>
+            <td>Text exists but is vague or mistimed</td>
+            <td>Little or no explanation text</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Stages / Structure</td>
+            <td>3+ clearly labeled, sequenced stages with smooth transitions</td>
+            <td>3 stages present; transitions a bit rough</td>
+            <td>Stages present but not clearly labeled</td>
+            <td>Fewer than 3 stages or no clear structure</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Creativity & Effort</td>
+            <td>Original design, polished sprites, clearly invested effort</td>
+            <td>Shows personal effort; some original touches</td>
+            <td>Minimal customization; basic visuals</td>
+            <td>Very little visible effort</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="4" style="text-align:right;">Total</td>
+            <td class="pts">100</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rubric-wrap">
+      <div class="rubric-title">🎵 Project 2 — micro:bit Jukebox &nbsp;<span style="color:#6672a0;font-weight:400;font-size:0.75rem;">/ 100 points</span></div>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Category</th>
+            <th>Excellent (20 pts)</th>
+            <th>Good (15 pts)</th>
+            <th>Developing (10 pts)</th>
+            <th>Incomplete (5 pts)</th>
+            <th class="pts" style="width:7%;">Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Two Working Songs</td>
+            <td>Both songs play fully, 8+ notes, clearly distinct melodies</td>
+            <td>Both songs play; one may be shorter or similar sounding</td>
+            <td>One song works well; other is incomplete</td>
+            <td>Only one song or neither plays properly</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Button Triggers</td>
+            <td>A and B trigger correct songs every time, reliably</td>
+            <td>Triggers work but occasionally glitch</td>
+            <td>One trigger works; other has issues</td>
+            <td>Triggers don't work or are mixed up</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>LED Display</td>
+            <td>Both songs have meaningful, synced LED output</td>
+            <td>LED works for both songs; display is simple</td>
+            <td>LED does something but feels disconnected</td>
+            <td>Blank screen during playback</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Code Quality</td>
+            <td>Notes coded individually; clean, organized blocks</td>
+            <td>Mostly hand-coded; minor shortcuts</td>
+            <td>Used some preset melodies or copied code structure</td>
+            <td>Preset melodies used or code is unreadable</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr>
+            <td>Submission & Explanation</td>
+            <td>.hex + screenshot + clear written explanation submitted</td>
+            <td>Mostly complete submission; explanation is brief</td>
+            <td>Missing one component or explanation is unclear</td>
+            <td>Multiple items missing</td>
+            <td class="pts pts-20">20</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="4" style="text-align:right;">Total</td>
+            <td class="pts">100</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="honor-box">
+      <h4>⚠️ Plagiarism Policy</h4>
+      <p>Any project found to be copied, remixed without permission, or AI-generated in whole will receive an automatic <strong>score of 0</strong> with no opportunity to redo. If you're not sure whether something is allowed — ask your teacher first. When in doubt, make it yourself.</p>
+    </div>
+
+  </div>
+
+  <!-- TIPS -->
+  <div id="tips" class="tab-panel">
+
+    <div class="section-label">Suggested Timeline</div>
+    <div class="timeline-grid">
+      <div class="timeline-item">
+        <div class="tl-label">Week 1</div>
+        <div class="tl-val">Choose topic & research. Sketch your plan on paper.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-label">Week 2</div>
+        <div class="tl-val">Build Scratch sprites. Start coding animation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-label">Week 3</div>
+        <div class="tl-val">Add text, stages, polish Scratch project. Start micro:bit.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-label">Week 4</div>
+        <div class="tl-val">Finish micro:bit jukebox. Test both. Write explanation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-label">Due Day</div>
+        <div class="tl-val">Submit Scratch link + micro:bit .hex + screenshot.</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:2rem;">How to Search for Ideas (the right way)</div>
+    <ul class="req-list">
+      <li>
+        <div class="req-num">✓</div>
+        <div class="req-text"><strong>Look up how the science works</strong> — search "how does photosynthesis work" or "mitosis steps explained" to understand what you're animating.</div>
+      </li>
+      <li>
+        <div class="req-num">✓</div>
+        <div class="req-text"><strong>Watch tutorials for Scratch techniques</strong> — search "how to clone a sprite in Scratch" or "how to use glide block." Learn the technique, then apply it yourself.</div>
+      </li>
+      <li>
+        <div class="req-num">✓</div>
+        <div class="req-text"><strong>Look up note frequencies for micro:bit</strong> — search "note frequency chart Hz" to find the right numbers for your song notes.</div>
+      </li>
+      <li>
+        <div class="req-num">✗</div>
+        <div class="req-text"><strong>Do NOT</strong> open someone else's Scratch project, click "Remix," and submit it. Do NOT copy code from a GitHub repo or YouTube tutorial and submit it as your own.</div>
+      </li>
+    </ul>
+
+    <div class="tip-box" style="margin-top:1.5rem;">
+      <h4>🙋 When to ask your teacher</h4>
+      <ul>
+        <li>You want to do a topic not on the list</li>
+        <li>You're not sure if the source you found is okay to use</li>
+        <li>Your micro:bit isn't playing sound correctly</li>
+        <li>You're stuck and can't move forward after trying for 20 minutes</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
